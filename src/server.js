@@ -1,7 +1,28 @@
-const server = require("./index");
-const dotenv = require("dotenv");
-dotenv.config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const helmet = require("helmet");
 
-server.listen(process.env.DB_PORT || 4444);
+class App {
+  constructor() {
+    this.express = express();
 
-console.log("Servidor aberto na porta", process.env.DB_PORT);
+    this.middlewares();
+    this.routes();
+    this.routesprotects();
+  }
+
+  middlewares() {
+    this.express.use(helmet());
+    this.express.use(bodyParser.json());
+    this.express.use(bodyParser.urlencoded({ extended: false }));
+  }
+
+  routes() {
+    this.express.use(require("./routes"));
+  }
+  routesprotects() {
+    this.express.use(require("./routesprotects"));
+  }
+}
+
+module.exports = new App().express;

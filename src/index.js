@@ -1,28 +1,7 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const helmet = require("helmet");
+const server = require("./server");
+const dotenv = require("dotenv");
+dotenv.config();
 
-class App {
-  constructor() {
-    this.express = express();
+server.listen(process.env.DB_PORT || 4444);
 
-    this.middlewares();
-    this.routes();
-    // this.routesprotects();
-  }
-
-  middlewares() {
-    this.express.use(helmet());
-    this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: false }));
-  }
-
-  routes() {
-    this.express.use(require("./routes"));
-  }
-  //   routesprotects() {
-  //     this.express.use(require("./routesprotects"));
-  //   }
-}
-
-module.exports = new App().express;
+console.log("Servidor aberto na porta", process.env.DB_PORT);
