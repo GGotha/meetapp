@@ -1,8 +1,29 @@
 {
-  "name": "desafio meetapp",
+  "name": "desafio-meetapp",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/GGotha/meetapp.git",
   "author": "Gustavo <snakygamer@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/server.js"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "sequelize-cli": "^5.5.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.20.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.15.0",
+    "sequelize-simple-pagination": "^0.1.0",
+    "youch": "^2.0.10"
+  }
 }
