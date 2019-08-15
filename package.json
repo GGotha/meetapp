@@ -1,0 +1,8 @@
+{
+  "name": "desafio meetapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/GGotha/meetapp.git",
+  "author": "Gustavo <snakygamer@gmail.com>",
+  "license": "MIT"
+}
