@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import CriarConta from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Recsenha from "./pages/Recsenha";
+import Detalhes from "./pages/Detalhes";
+import Criarmeetup from "./pages/Criarmeetup";
 
 const Routes = () => (
   <BrowserRouter>
@@ -12,6 +14,8 @@ const Routes = () => (
       <Route exact path="/login" component={Login} />
       <Route exact path="/criar-conta" component={CriarConta} />
       <Route exact path="/recuperar-senha" component={Recsenha} />
+      <Route exact path="/detalhes" component={Detalhes} />
+      <Route exact path="/criar-meetup" component={Criarmeetup} />
     </Switch>
   </BrowserRouter>
 );

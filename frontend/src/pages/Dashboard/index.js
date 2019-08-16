@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import { Global, Container, Listas } from "./styles";
 
+import { Link } from "react-router-dom";
+
 import Navbar from "../../components/Navbar";
 
 export default class Dashboard extends Component {
@@ -11,7 +13,7 @@ export default class Dashboard extends Component {
         <Navbar />
         <Container>
           <h1>Meus meetups</h1>
-          <a href="#">Novo meetup</a>
+          <Link to="#">Novo meetup</Link>
         </Container>
         <Listas>
           <ul>
