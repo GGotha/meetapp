@@ -5,23 +5,55 @@ import {
   Header,
   RightHeader,
   InformacoesRightHeader,
-  Global
+  MeuPerfil,
+  Sairbtn
 } from "./styles";
 
 import M from "../../assets/M.png";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default class Navbar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      nome: ""
+    };
+  }
+
+  async componentDidMount() {
+    const token = localStorage.getItem("token");
+    axios
+      .get(`http://localhost:4444/find`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        this.setState({ nome: res.data.getInfoUser.name });
+      });
+  }
+
+  removeToken() {
+    localStorage.removeItem("token");
+  }
   render() {
     return (
       <Header>
         <Nav>
-          <img src={M} alt="" />
+          <Link to="/dashboard">
+            <img src={M} alt="" />
+          </Link>
+
           <RightHeader>
             <InformacoesRightHeader>
-              <h1>Gustavo Gotha</h1>
-              <span>Meu perfil</span>
+              <h1>{this.state.nome}</h1>
+              <MeuPerfil to="/recuperar-senha">Meu perfil</MeuPerfil>
             </InformacoesRightHeader>
-            <a href="/login">Sair</a>
+            <Sairbtn onClick={this.removeToken} to="/">
+              Sair
+            </Sairbtn>
           </RightHeader>
         </Nav>
       </Header>

@@ -33,12 +33,6 @@ export default class Signup extends Component {
   handleCreateUser = async e => {
     e.preventDefault();
 
-    const user = {
-      name: this.state.nome,
-      email: this.state.email,
-      password: this.state.password
-    };
-
     axios
       .post(`http://localhost:4444/users`, {
         name: this.state.nome,
@@ -49,6 +43,7 @@ export default class Signup extends Component {
         console.log(res.data);
         if (res.data.status === "success") {
           alert(res.data.msg);
+          this.props.history.push("/");
         } else {
           alert(res.data.msg);
         }
@@ -62,6 +57,7 @@ export default class Signup extends Component {
           <Image src={M} alt="" />
           <InputLogin
             type="text"
+            minLength="6"
             name="nome"
             placeholder="Nome Completo"
             onChange={e => this.handleInputChange(e)}
@@ -69,6 +65,7 @@ export default class Signup extends Component {
           />
           <InputLogin
             type="email"
+            minLength="6"
             name="email"
             placeholder="Digite seu e-mail"
             onChange={e => this.handleInputChange(e)}
@@ -79,6 +76,7 @@ export default class Signup extends Component {
             name="password"
             placeholder="Sua senha secreta"
             name="password"
+            minLength="6"
             onChange={e => this.handleInputChange(e)}
             value={this.state.password}
           />

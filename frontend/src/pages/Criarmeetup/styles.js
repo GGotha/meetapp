@@ -71,7 +71,7 @@ export const Descricao = styled.input`
   margin: 0.3% auto;
 `;
 
-export const StyledBtn = styled(Link)`
+export const StyledBtn = styled.button`
   background: #d44059;
   outline: 0;
   border: 0;

@@ -4,37 +4,48 @@ import { Global, Container, Listas } from "./styles";
 
 import { Link } from "react-router-dom";
 
+import { FaPlusCircle } from "react-icons/fa";
+
 import Navbar from "../../components/Navbar";
 
+import axios from "axios";
+
+import ListasDashboard from "../../components/ListasDashboard";
+
 export default class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      meetups: []
+    };
+  }
+
+  async componentDidMount() {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    axios
+      .get(`http://localhost:4444/meetup`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        this.setState({ meetups: res.data.getMeetupsUser });
+      });
+  }
+
   render() {
     return (
       <Global>
         <Navbar />
         <Container>
           <h1>Meus meetups</h1>
-          <Link to="#">Novo meetup</Link>
+          <Link to="/criar-meetup">
+            <FaPlusCircle /> <span>Novo meetup</span>
+          </Link>
         </Container>
-        <Listas>
-          <ul>
-            <li>
-              <span>Meetup de React Native</span>
-              <span>14 de julho, às 14h</span>
-            </li>
-            <li>
-              <span>Meetup de React Native</span>
-              <span>14 de julho, às 14h</span>
-            </li>
-            <li>
-              <span>Meetup de React Native</span>
-              <span>14 de julho, às 14h</span>
-            </li>
-            <li>
-              <span>Meetup de React Native</span>
-              <span>14 de julho, às 14h</span>
-            </li>
-          </ul>
-        </Listas>
+        <ListasDashboard meetups={this.state.meetups} />
       </Global>
     );
   }

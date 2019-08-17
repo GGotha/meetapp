@@ -6,16 +6,21 @@ import Dashboard from "./pages/Dashboard";
 import Recsenha from "./pages/Recsenha";
 import Detalhes from "./pages/Detalhes";
 import Criarmeetup from "./pages/Criarmeetup";
+import Page404 from "./components/Page404";
+import { PrivateRoute } from "./components/PrivateRoute";
+// import PrivateRoute from "react-private-route";
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Dashboard} />
-      <Route exact path="/login" component={Login} />
       <Route exact path="/criar-conta" component={CriarConta} />
+      <Route exact path="/" component={Login} />
       <Route exact path="/recuperar-senha" component={Recsenha} />
-      <Route exact path="/detalhes" component={Detalhes} />
-      <Route exact path="/criar-meetup" component={Criarmeetup} />
+
+      <PrivateRoute exact path="/detalhes" component={Detalhes} />
+      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/criar-meetup" component={Criarmeetup} />
+      <Route component={Page404} />
     </Switch>
   </BrowserRouter>
 );

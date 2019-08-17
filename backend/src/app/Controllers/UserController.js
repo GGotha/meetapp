@@ -25,17 +25,6 @@ class UserController {
       return res.status(200).send({ status: "error", msg: "erro interno" });
     }
   }
-  // async updatePass(req, res) {
-  //   const { password, confirmPassword } = req.body;
-
-  //   const user = await User.findOne({
-  //     where: { password_hash }
-  //   });
-
-  //   if (!(await checkPassword(password))) {
-  //     return res.status(400).json({ error: "alo" });
-  //   }
-  // }
 }
 
 module.exports = new UserController();

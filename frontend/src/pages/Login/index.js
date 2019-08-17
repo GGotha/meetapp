@@ -41,13 +41,13 @@ export default class Login extends Component {
         password: this.state.password
       })
       .then(res => {
-        console.log(res.data);
         if (res.data.status === "success") {
-          alert(res.data.msg);
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          this.props.history.push("/dashboard");
         } else {
           alert(res.data.msg);
         }
-        localStorage.getItem("token");
       });
   };
 
