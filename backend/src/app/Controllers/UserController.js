@@ -6,7 +6,7 @@ class UserController {
 
     if (await User.findOne({ where: { email } })) {
       return res
-        .status(400)
+        .status(200)
         .json({ status: "error", msg: "Email já cadastrado" });
     }
 
@@ -22,7 +22,7 @@ class UserController {
         msg: "Usuário criado"
       });
     } catch (err) {
-      return res.status(400).send({ status: "error", msg: "erro interno" });
+      return res.status(200).send({ status: "error", msg: "erro interno" });
     }
   }
   // async updatePass(req, res) {

@@ -14,7 +14,7 @@ class App {
   middlewares() {
     this.express.use(helmet());
     this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: false }));
+    this.express.use(bodyParser.urlencoded({ extended: true }));
   }
 
   routes() {

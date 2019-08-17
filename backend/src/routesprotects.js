@@ -6,6 +6,6 @@ const UserController = require("./app/Controllers/UserController");
 
 routesprotects.use(authMiddleware);
 
-routesprotects.put("/pass", UserController.updatePass);
+// routesprotects.put("/pass", UserController.updatePass);
 
 module.exports = routesprotects;

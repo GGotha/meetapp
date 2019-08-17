@@ -10,11 +10,15 @@ class SessionController {
       });
 
       if (!user) {
-        return res.status(400).json({ error: "Usuário ou senha inválida" });
+        return res
+          .status(200)
+          .json({ status: "error", msg: "Usuário ou senha inválida" });
       }
 
       if (!(await user.checkPassword(password))) {
-        return res.status(400).json({ error: "Usuário ou senha inválida" });
+        return res
+          .status(200)
+          .json({ status: "error", msg: "Usuário ou senha inválida" });
       }
 
       return res.status(200).json({
@@ -23,7 +27,7 @@ class SessionController {
         token: user.generateToken(user)
       });
     } catch (error) {
-      return res.status(400).json({
+      return res.status(200).json({
         status: "error",
         msg: "Erro ao autenticar, tente novamente mais tarde"
       });
