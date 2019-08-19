@@ -17,13 +17,13 @@ export default class Dashboard extends Component {
     super(props);
 
     this.state = {
-      meetups: []
+      meetups: [],
+      link: ""
     };
   }
 
   async componentDidMount() {
     const token = localStorage.getItem("token");
-    console.log(token);
     axios
       .get(`http://localhost:4444/meetup`, {
         headers: {
@@ -32,6 +32,7 @@ export default class Dashboard extends Component {
       })
       .then(res => {
         this.setState({ meetups: res.data.getMeetupsUser });
+        this.setState({ link: `/detalhes/` + res.data.getMeetupsUser });
       });
   }
 
@@ -45,7 +46,7 @@ export default class Dashboard extends Component {
             <FaPlusCircle /> <span>Novo meetup</span>
           </Link>
         </Container>
-        <ListasDashboard meetups={this.state.meetups} />
+        <ListasDashboard link={this.state.link} meetups={this.state.meetups} />
       </Global>
     );
   }

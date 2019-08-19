@@ -28,6 +28,9 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
 
+    &:hover {
+      opacity: 0.6;
+    }
     span {
       margin: 0 5%;
     }

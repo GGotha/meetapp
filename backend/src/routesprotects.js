@@ -11,6 +11,7 @@ routesprotects.use(authMiddleware);
 // routesprotects.put("/pass", UserController.updatePass);
 routesprotects.post("/meetups", MeetupController.store);
 routesprotects.get("/meetup", MeetupController.list);
+routesprotects.get("/meetup/:id", MeetupController.listById);
 routesprotects.get("/find", InfoController.find);
 
 module.exports = routesprotects;

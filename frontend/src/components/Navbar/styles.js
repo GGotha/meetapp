@@ -19,6 +19,10 @@ export const Sairbtn = styled(Link)`
   align-items: center;
   justify-content: center;
   text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 export const Nav = styled.nav`

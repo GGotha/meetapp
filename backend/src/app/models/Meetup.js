@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       descricao: DataTypes.TEXT,
       localizacao: DataTypes.STRING,
       imagem: DataTypes.STRING,
-      data: DataTypes.DATE,
-      hora: DataTypes.TIME
+      data: DataTypes.DATE
     },
     {
       tableName: "meetups"

@@ -18,7 +18,7 @@ export default class Navbar extends Component {
     super(props);
 
     this.state = {
-      nome: ""
+      nome: undefined
     };
   }
 
@@ -48,7 +48,11 @@ export default class Navbar extends Component {
 
           <RightHeader>
             <InformacoesRightHeader>
-              <h1>{this.state.nome}</h1>
+              <h1>
+                {this.state.nome === undefined
+                  ? "Carregando..."
+                  : this.state.nome}
+              </h1>
               <MeuPerfil to="/recuperar-senha">Meu perfil</MeuPerfil>
             </InformacoesRightHeader>
             <Sairbtn onClick={this.removeToken} to="/">

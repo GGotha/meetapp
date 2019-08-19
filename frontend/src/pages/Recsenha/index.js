@@ -4,7 +4,31 @@ import { Global, Formulario, InfLogin } from "./styles";
 
 import Navbar from "../../components/Navbar";
 
+import axios from "axios";
+
 export default class Recsenha extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      nome: undefined,
+      email: undefined
+    };
+  }
+
+  async componentDidMount() {
+    const token = localStorage.getItem("token");
+    axios
+      .get(`http://localhost:4444/find`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        this.setState({ nome: res.data.getInfoUser.name });
+        this.setState({ email: res.data.getInfoUser.email });
+      });
+  }
   render() {
     return (
       <Global>
@@ -12,10 +36,22 @@ export default class Recsenha extends Component {
         <div>
           <Formulario action="">
             <InfLogin>
-              <input type="text" value="Gustavo Gotha" placeholder="Seu nome" />
               <input
                 type="text"
-                value="clashgustavo1@gmail.com"
+                value={
+                  this.state.nome === undefined
+                    ? "Carregando..."
+                    : this.state.nome
+                }
+                placeholder="Seu nome"
+              />
+              <input
+                type="text"
+                value={
+                  this.state.email === undefined
+                    ? "Carregando..."
+                    : this.state.email
+                }
                 placeholder="Seu email"
               />
               <span />

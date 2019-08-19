@@ -49,7 +49,12 @@ export default class Dashboard extends Component {
       date: this.state.date
     };
     axios.post(`http://localhost:4444/meetups`, dados, config).then(res => {
-      console.log(res.data);
+      if (res.data.status === "success") {
+        alert(res.data.msg);
+        this.props.history.push("/dashboard");
+      } else {
+        alert(res.data.msg);
+      }
     });
   };
   render() {
@@ -58,7 +63,11 @@ export default class Dashboard extends Component {
         <Navbar />
         <Conteudo>
           <div>
-            <form action="" onSubmit={this.handleCreateUser}>
+            <form
+              id="formularioMeetups"
+              action="POST"
+              onSubmit={this.handleCreateUser}
+            >
               <File>
                 <Carregar
                   type="file"

@@ -40,7 +40,6 @@ export default class Signup extends Component {
         password: this.state.password
       })
       .then(res => {
-        console.log(res.data);
         if (res.data.status === "success") {
           alert(res.data.msg);
           this.props.history.push("/");

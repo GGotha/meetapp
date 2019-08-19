@@ -54,7 +54,7 @@ export default class Login extends Component {
   render() {
     return (
       <Global>
-        <Formulario onSubmit={this.handleCreateUser}>
+        <Formulario autoComplete="false" onSubmit={this.handleCreateUser}>
           <Image src={M} alt="" />
           <InputLogin
             type="email"

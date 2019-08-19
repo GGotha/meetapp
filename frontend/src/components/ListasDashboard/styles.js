@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
 export const Listas = styled.div`
   display: flex;
   margin: 0.5% 15%;
@@ -19,6 +21,10 @@ export const Listas = styled.div`
     display: flex;
     justify-content: space-between;
 
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
     span {
       font-size: 18px;
       font-family: Helvetica-bold, sans-serif
@@ -33,4 +39,8 @@ export const Listas = styled.div`
       }
     }
   }
+`;
+
+export const LinkMeetups = styled(Link)`
+  text-decoration: none;
 `;
