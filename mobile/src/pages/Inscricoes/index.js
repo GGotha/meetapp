@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 
-import { View, StatusBar, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import styles, { Container, ImagemCard, Card } from "./styles";
@@ -11,6 +17,10 @@ import Footer from "../../components/Footer";
 import { colors, metrics } from "../../styles";
 
 class Inscricoes extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <Container>

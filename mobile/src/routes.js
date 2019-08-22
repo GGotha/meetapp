@@ -8,8 +8,8 @@ import Inscricoes from "./pages/Inscricoes";
 
 const Routes = createAppContainer(
   createSwitchNavigator({
-    Inscricoes,
     Meetups,
+    Inscricoes,
     Recsenha,
     Login,
     Signup
