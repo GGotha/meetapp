@@ -24,7 +24,6 @@ class Inscricoes extends Component {
   render() {
     return (
       <Container>
-        <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
         <Navbar />
         <View>
           <Card style={styles.card}>

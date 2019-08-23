@@ -22,14 +22,21 @@ export const Container = styled(LinearGradient).attrs({
   align-items: center;
 `;
 
-export const Blabla = styled.Text`
-  margin-right: 10px;
-`;
+// export const Blabla = styled.Text`
+//   margin-right: 10px;
+// `;
+
+// export const List = styled.FlatList.attrs({
+//   showsVerticalScrollIndicator: false,
+//   contentContainerStyle: { padding: 30 }
+// })``;
 
 export const ImagemCard = styled.Image`
   width: 100%;
 `;
-export const Card = styled.View``;
+export const Card = styled.View`
+  margin-bottom: 10%;
+`;
 
 const styles = StyleSheet.create({
   viewDate: {

@@ -6,29 +6,66 @@ import {
   TouchableOpacity,
   StatusBar,
   ScrollView,
-  Dimensions
+  Dimensions,
+  AsyncStorage,
+  Alert
 } from "react-native";
 import styles, { Container, BordaSeparate } from "./styles";
 import M from "../../assets/M.png";
 import { colors, metrics } from "../../styles";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import api from "../../services/api";
+import { withNavigation } from "react-navigation";
 
 class Recsenha extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      nome: undefined,
+      email: undefined
+    };
+  }
+
+  async componentDidMount() {
+    const token = await AsyncStorage.getItem("@Meetapp:token");
+    console.tron.log("tokenzito", token);
+
+    const response = await api.get("/find", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    this.setState({ nome: response.data.getInfoUser.name });
+    this.setState({ email: response.data.getInfoUser.email });
+
+    console.tron.log("responsezitopapi", response);
+  }
+
+  // async removetoken() {
+  //   const token = await AsyncStorage.getItem("@Meetapp:token");
+
+  //   if (token === true) {
+  //     await AsyncStorage.removeItem("@Meetapp:token");
+  //     this.props.navigation.navigate("Meetups");
+  //   }
+  // }
+
   render() {
     const { navigation } = this.props;
     return (
       <Container>
         <Navbar />
-
-        <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
         <View style={styles.form}>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
             autoCorrect={false}
-            placeholder="Nome Completo"
-            value="Gustavo Gotha"
+            value={
+              this.state.nome === undefined ? "Carregando..." : this.state.nome
+            }
             placeholderTextColor={colors.light}
             underlineColorAndroid="transparent"
           />
@@ -37,7 +74,11 @@ class Recsenha extends Component {
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="Email"
-            value="clashgustavo1@gmail.com"
+            value={
+              this.state.email === undefined
+                ? "Carregando..."
+                : this.state.email
+            }
             placeholderTextColor={colors.light}
             underlineColorAndroid="transparent"
           />
@@ -50,6 +91,7 @@ class Recsenha extends Component {
             placeholder="Senha atual"
             placeholderTextColor={colors.light}
             underlineColorAndroid="transparent"
+            secureTextEntry
           />
           <TextInput
             style={styles.input}
@@ -58,6 +100,7 @@ class Recsenha extends Component {
             placeholder="Nova senha"
             placeholderTextColor={colors.light}
             underlineColorAndroid="transparent"
+            secureTextEntry
           />
           <TextInput
             style={styles.input}
@@ -66,16 +109,14 @@ class Recsenha extends Component {
             placeholder="Confirmação de senha"
             placeholderTextColor={colors.light}
             underlineColorAndroid="transparent"
-            secureTextEntry={true}
+            secureTextEntry
           />
           <TouchableOpacity style={styles.button} onPress={() => {}}>
             <Text style={styles.buttonText}>Salvar Perfil</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonLeave}
-            onPress={() => {
-              navigation.navigate("Login");
-            }}
+            onPress={() => navigation.navigate("Login")}
           >
             <Text style={styles.buttonText}>Sair do Meetapp</Text>
           </TouchableOpacity>
@@ -86,4 +127,4 @@ class Recsenha extends Component {
   }
 }
 
-export default Recsenha;
+export default withNavigation(Recsenha);
