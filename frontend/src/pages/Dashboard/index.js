@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Global, Container, Listas } from "./styles";
+import { Container } from "./styles";
 
 import { Link } from "react-router-dom";
 
@@ -38,7 +38,7 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <Global>
+      <>
         <Navbar />
         <Container>
           <h1>Meus meetups</h1>
@@ -47,7 +47,7 @@ export default class Dashboard extends Component {
           </Link>
         </Container>
         <ListasDashboard link={this.state.link} meetups={this.state.meetups} />
-      </Global>
+      </>
     );
   }
 }

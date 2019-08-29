@@ -11,31 +11,11 @@ import { black } from "ansi-colors";
 var width = Dimensions.get("window").width; //full width
 var height = Dimensions.get("window").height;
 
-export const Container = styled(LinearGradient).attrs({
-  colors: ["#22202C", "#402845"],
-  start: { x: 0, y: 0 },
-  end: { x: 1, y: 1 }
-})`
-  flex: 1;
-  padding: 40px;
-  justify-content: center;
-  align-items: center;
-`;
-
-// export const Blabla = styled.Text`
-//   margin-right: 10px;
-// `;
-
-// export const List = styled.FlatList.attrs({
-//   showsVerticalScrollIndicator: false,
-//   contentContainerStyle: { padding: 30 }
-// })``;
-
 export const ImagemCard = styled.Image`
   width: 100%;
 `;
 export const Card = styled.View`
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 `;
 
 const styles = StyleSheet.create({

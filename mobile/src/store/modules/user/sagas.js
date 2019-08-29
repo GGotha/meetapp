@@ -3,7 +3,7 @@ import { takeLatest, call, put, all } from "redux-saga/effects";
 
 import api from "../../../services/api";
 
-import { updatedProfileSuccess, updatedProfileFailure } from "./actions";
+import { updateProfileSuccess, updateProfileFailure } from "./actions";
 
 export function* updateProfile({ payload }) {
   try {
@@ -15,15 +15,16 @@ export function* updateProfile({ payload }) {
     );
 
     const response = yield call(api.put, "users", profile);
-    Alert.alert("Sucesso!", "Perfil Atualizado com sucesso");
 
-    yield put(updatedProfileSuccess(response.data));
+    Alert.alert("Sucesso!", "Perfil atualizado com sucesso");
+
+    yield put(updateProfileSuccess(response.data));
   } catch (err) {
     Alert.alert(
       "Falha na atualização",
-      "Erro ao atualizar perfil, confira seus dados!"
+      "Houve um erro na atualização do perfil, verifique seus dados"
     );
-    yield put(updatedProfileFailure());
+    yield put(updateProfileFailure());
   }
 }
 

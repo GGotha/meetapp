@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("meetups", {
+    return queryInterface.createTable("files", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,23 +11,16 @@ module.exports = {
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
-      titulo: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      descricao: {
+      path: {
         allowNull: false,
-        type: Sequelize.TEXT
-      },
-      localizacao: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      data: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING,
+        unique: true
       },
       created_at: {
         allowNull: false,
@@ -41,6 +34,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("meetups");
+    return queryInterface.dropTable("files");
   }
 };

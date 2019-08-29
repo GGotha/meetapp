@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 
-import {
-  Formulario,
-  InputLogin,
-  Entrarbtn,
-  Global,
-  Image,
-  Create
-} from "./styles";
+import { Formulario, InputLogin, Entrarbtn, Image, Create } from "./styles";
 
 import M from "../../assets/M.png";
 import api from "../../services/api";
@@ -51,7 +44,7 @@ export default class Signup extends Component {
 
   render() {
     return (
-      <Global>
+      <>
         <Formulario autoComplete="on" onSubmit={this.handleCreateUser}>
           <Image src={M} alt="" />
           <InputLogin
@@ -82,7 +75,7 @@ export default class Signup extends Component {
           <Entrarbtn type="submit">Criar Conta</Entrarbtn>
           <Create href="/">Já tenho login</Create>
         </Formulario>
-      </Global>
+      </>
     );
   }
 }

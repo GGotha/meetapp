@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 
-import {
-  Formulario,
-  InputLogin,
-  Entrarbtn,
-  Global,
-  Image,
-  Create
-} from "./styles";
+import { Formulario, InputLogin, Entrarbtn, Image, Create } from "./styles";
 
 import Navbar from "../../components/Navbar";
 
@@ -53,7 +46,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <Global>
+      <>
         <Formulario autoComplete="false" onSubmit={this.handleCreateUser}>
           <Image src={M} alt="" />
           <InputLogin
@@ -74,7 +67,7 @@ export default class Login extends Component {
           <Entrarbtn type="submit">Entrar</Entrarbtn>
           <Create href="/criar-conta">Criar conta grátis</Create>
         </Formulario>
-      </Global>
+      </>
     );
   }
 }

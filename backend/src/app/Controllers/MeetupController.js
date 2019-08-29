@@ -1,52 +1,53 @@
 const { User } = require("../models");
 const { Meetup } = require("../models");
 const moment = require("moment");
+const Yup = require("yup");
+const { startOfHour, parseISO, isBefore } = require("date-fns");
 
 class MeetupController {
   async store(req, res) {
-    const { titulo, descricao, localizacao, imagem, date } = req.body;
-
-    const getInfoUser = await User.findOne({
-      where: { id: req.userId },
-      raw: true
+    const schema = Yup.object().shape({
+      titulo: Yup.string().required(),
+      descricao: Yup.string().required(),
+      localizacao: Yup.string().required(),
+      data: Yup.date().required()
     });
 
-    const { id } = getInfoUser;
+    if (!(await schema.isValid(req.body))) {
+      return res.json({ status: "error", msg: "Erro na validação" });
+    }
 
-    try {
-      const addMeetupBD = await Meetup.create({
-        user_id: id,
-        titulo,
-        descricao,
-        localizacao,
-        imagem,
-        data: date
-      });
+    const { titulo, descricao, localizacao, data } = req.body;
 
-      return res.json({
-        status: "success",
-        msg: "Meetup criada com sucesso",
-        addMeetupBD
-      });
-    } catch (error) {
+    const hourStart = startOfHour(parseISO(data));
+
+    if (isBefore(hourStart, new Date())) {
       return res.json({
         status: "error",
-        msg: "Ocorreu um erro interno, por favor, tente novamente mais tarde"
+        msg: "Datas passadas não são permitidas"
       });
     }
+
+    const addMeetupBD = await Meetup.create({
+      user_id: req.userId,
+      titulo,
+      descricao,
+      localizacao,
+      data
+    });
+
+    return res.json(addMeetupBD);
   }
   async list(req, res) {
+    const { page = 1 } = req.query;
+
     try {
       const getMeetupsUser = await Meetup.findAll({
         where: { user_id: req.userId },
-        attributes: [
-          "id",
-          "titulo",
-          "descricao",
-          "localizacao",
-          "imagem",
-          "data"
-        ]
+        attributes: ["id", "titulo", "descricao", "localizacao", "data"],
+        order: ["data"],
+        limit: 10,
+        offset: (page - 1) * 10
       });
 
       return res.json({
@@ -92,6 +93,32 @@ class MeetupController {
       return res.status(200).send({
         status: "error",
         msg: "Erro ao encontrar meetup, tente novamente mais tarde"
+      });
+    }
+  }
+
+  async listAll(req, res) {
+    try {
+      const getMeetupsUser = await Meetup.findAll({
+        attributes: [
+          "id",
+          "titulo",
+          "descricao",
+          "localizacao",
+          "imagem",
+          "data"
+        ]
+      });
+
+      return res.json({
+        status: "success",
+        msg: "Meetups encontradas com sucesso",
+        getMeetupsUser
+      });
+    } catch (error) {
+      return res.json({
+        status: "error",
+        msg: "Ocorreu um erro interno, por favor, tente novamente mais tarde"
       });
     }
   }

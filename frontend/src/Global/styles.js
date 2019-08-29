@@ -8,9 +8,13 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     outline: 0;
   }
+  html, body, #root {
+    min-height: 100%
+  }
+
   body {
     font-family: Arial, Helvetica, sans-serif;
-    // background-color: #22202c;
+    background-image: linear-gradient(to bottom, #22202c, #402845);
   }
 `;
 

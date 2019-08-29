@@ -34,7 +34,7 @@ export default function Meetups() {
 
       console.tron.log(token);
 
-      const response = await api.get("/meetup", {
+      const response = await api.get("/meetup/all", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -70,7 +70,11 @@ export default function Meetups() {
           renderItem={({ item }) => <CardMeetups data={item} />}
         />
       </View>
-      <Footer />
     </Background>
   );
 }
+
+Meetups.navigationOptions = {
+  tabBarLabel: "Meetups",
+  tabBarIcon: () => <Icon name="bars" size={20} color="#fff" />
+};

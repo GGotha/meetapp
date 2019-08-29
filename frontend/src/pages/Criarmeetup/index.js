@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import {
-  Global,
   Conteudo,
   File,
   InputText,
@@ -12,8 +11,10 @@ import {
 
 import Navbar from "../../components/Navbar";
 import moment from "moment";
+import ImageMeetup from "./ImageMeetup";
 
 import axios from "axios";
+import api from "../../services/api";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class Dashboard extends Component {
       titulo: "",
       descricao: "",
       localizacao: "",
-      imagem: "",
+      file: "",
       date: ""
     };
   }
@@ -32,7 +33,7 @@ export default class Dashboard extends Component {
     await this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleCreateUser = async e => {
+  handleCreateMeetup = async e => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const config = {
@@ -40,43 +41,36 @@ export default class Dashboard extends Component {
         Authorization: `Bearer ${token}`
       }
     };
-    console.log(this.state.date);
+    // console.log(this.state.date);
     const dados = {
       titulo: this.state.titulo,
       descricao: this.state.descricao,
       localizacao: this.state.localizacao,
-      imagem: this.state.imagem,
       date: this.state.date
     };
-    axios.post(`http://localhost:4444/meetups`, dados, config).then(res => {
-      if (res.data.status === "success") {
-        alert(res.data.msg);
-        this.props.history.push("/dashboard");
-      } else {
-        alert(res.data.msg);
-      }
-    });
+
+    const response = await api.post("/meetups", dados, config);
+
+    if (response.data.status === "success") {
+      alert(response.data.msg);
+      this.props.history.push("/dashboard");
+    } else {
+      alert(response.data.msg);
+    }
   };
+
   render() {
     return (
-      <Global>
+      <>
         <Navbar />
         <Conteudo>
           <div>
             <form
               id="formularioMeetups"
               action="POST"
-              onSubmit={this.handleCreateUser}
+              onSubmit={this.handleCreateMeetup}
             >
-              <File>
-                <Carregar
-                  type="file"
-                  name="imagem"
-                  value={this.state.imagem}
-                  onChange={e => this.handleInputChange(e)}
-                />
-                <h1>Selecionar Imagem</h1>
-              </File>
+              <ImageMeetup name="banner_id" />
               <InputText
                 type="text"
                 name="titulo"
@@ -102,7 +96,7 @@ export default class Dashboard extends Component {
                 required
                 placeholder="2001-09-02T12:03"
                 name="date"
-                value={this.state.date}
+                // value="2001-09-02T12:03"
                 onChange={e => this.handleInputChange(e)}
               />
               <InputText
@@ -119,7 +113,7 @@ export default class Dashboard extends Component {
             </form>
           </div>
         </Conteudo>
-      </Global>
+      </>
     );
   }
 }

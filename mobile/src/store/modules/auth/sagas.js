@@ -1,15 +1,15 @@
 import { Alert } from "react-native";
-import { takeLastest, call, put, all } from "redux-saga/effects";
+import { takeLatest, call, put, all } from "redux-saga/effects";
 
 import api from "../../../services/api";
 
 import { signInSuccess, signFailure } from "./actions";
 
-export function* signIn({ payload }) {
+export function* signIn({ payload, navigation }) {
   try {
     const { email, password } = payload;
 
-    const response = yield call(api.post, "sessions", {
+    const response = yield call(api.post, "/", {
       email,
       password
     });
@@ -17,16 +17,26 @@ export function* signIn({ payload }) {
     const { token, user } = response.data;
 
     // if (user.provider) {
-    //   Alert.alert('Erro no Login', 'O usuário não é prestador de serviço')
-    //   return
+    //   Alert.alert(
+    //     "Erro no login",
+    //     "O usuário não pode ser prestador de serviços"
+    //   );
+    //   return;
     // }
+
+    console.tron.log("DADOS DO RESPONSE:", response.data);
+
+    console.tron.log("navegar:", navigation);
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
 
-    // history.push('/dashboard')
+    navigation.navigate("dashboard");
+
+    // history.push("/dashboard");
   } catch (err) {
+    console.tron.log("ERRO SIGNIN:", err);
     Alert.alert(
       "Falha na autenticação",
       "Houve um erro no login, verifique seus dados"
@@ -42,10 +52,12 @@ export function* signUp({ payload }) {
     yield call(api.post, "users", {
       name,
       email,
-      password,
-      provider: true
+      password
     });
-    // history.push('/')
+
+    // history.push('/');
+    navigation.navigate("/login");
+    Alert.alert("Success", "Usuário criado");
   } catch (err) {
     Alert.alert(
       "Falha no cadastro",
@@ -66,13 +78,8 @@ export function setToken({ payload }) {
   }
 }
 
-export function signOut() {
-  // history.push('/')
-}
-
 export default all([
-  takeLastest("persist/REHYDRATE", setToken),
-  takeLastest("@auth/SIGN_IN_REQUEST", signIn),
-  takeLastest("@auth/SIGN_UP_REQUEST", signUp),
-  takeLastest("@auth/SIGN_OUT", signOut)
+  takeLatest("persist/REHYDRATE", setToken),
+  takeLatest("@auth/SIGN_IN_REQUEST", signIn),
+  takeLatest("@auth/SIGN_UP_REQUEST", signUp)
 ]);

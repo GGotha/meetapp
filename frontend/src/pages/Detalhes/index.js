@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import {
-  Global,
   Container,
   Conteudo,
   Footer,
@@ -58,7 +57,7 @@ export default class Detalhes extends Component {
   }
   render() {
     return (
-      <Global>
+      <>
         <Navbar />
         <Container>
           <h1>
@@ -98,7 +97,7 @@ export default class Detalhes extends Component {
             </span>
           </Footer>
         </Conteudo>
-      </Global>
+      </>
     );
   }
 }

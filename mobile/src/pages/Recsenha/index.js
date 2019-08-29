@@ -13,6 +13,7 @@ import {
 import styles, { Container, BordaSeparate } from "./styles";
 import M from "../../assets/M.png";
 import { colors, metrics } from "../../styles";
+import Icon from "react-native-vector-icons/FontAwesome";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import api from "../../services/api";
@@ -121,10 +122,14 @@ class Recsenha extends Component {
             <Text style={styles.buttonText}>Sair do Meetapp</Text>
           </TouchableOpacity>
         </View>
-        <Footer />
       </Container>
     );
   }
 }
+
+Recsenha.navigationOptions = {
+  tabBarLabel: "Meu Perfil",
+  tabBarIcon: () => <Icon name="user" size={20} color="#fff" />
+};
 
 export default withNavigation(Recsenha);

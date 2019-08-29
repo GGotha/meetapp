@@ -10,48 +10,34 @@ import Recsenha from "./pages/Recsenha";
 import Meetups from "./pages/Meetups";
 import Inscricoes from "./pages/Inscricoes";
 
-const Routes = createAppContainer(
-  createSwitchNavigator({
-    Sign: createSwitchNavigator({
-      Login,
-      Recsenha,
-      Signup
-    }),
-    App: createSwitchNavigator({
-      Meetups,
-      Inscricoes
-    })
-  }),
-  {
-    initialRouteName: "App"
-    // initialRouteName: isSigned ? "App" : "Sign"
-  }
-);
-
-// export const createRootNavigator = (Sign = false) => {
-//   return createStackNavigator(
-//     {
-//       Sign: { screen: SignRoutes },
-//       App: { screen: AppRoutes }
-//     },
-//     {
-//       headerMode: "none",
-//       mode: "modal",
-//       initialRouteName: Sign ? "Sign" : "App",
-//       navigationOptions: {
-//         gesturesEnabled: false
-//       }
-//     }
-//   );
-// };
-// const Routes = createAppContainer(
-//   createSwitchNavigator({
-//     Meetups,
-//     Inscricoes,
-//     Recsenha,
-//     Login,
-//     Signup
-//   })
-// );
-
-export default Routes;
+export default (isSigned = false) =>
+  createAppContainer(
+    createSwitchNavigator(
+      {
+        Sign: createSwitchNavigator({
+          Login,
+          Signup
+        }),
+        App: createBottomTabNavigator(
+          {
+            Meetups,
+            Inscricoes,
+            Recsenha
+          },
+          {
+            tabBarOptions: {
+              keyboardHidesTabBar: true,
+              activeTintColor: "#FFF",
+              inactiveTintColor: "rgba(255, 255, 255, 0.6)",
+              style: {
+                backgroundColor: "#2B1A2F"
+              }
+            }
+          }
+        )
+      },
+      {
+        initialRouteName: isSigned ? "App" : "Sign"
+      }
+    )
+  );

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Global, Formulario, InfLogin } from "./styles";
+import { Formulario, InfLogin } from "./styles";
 
 import Navbar from "../../components/Navbar";
 
@@ -31,7 +31,7 @@ export default class Recsenha extends Component {
   }
   render() {
     return (
-      <Global>
+      <>
         <Navbar />
         <div>
           <Formulario action="">
@@ -64,7 +64,7 @@ export default class Recsenha extends Component {
             </InfLogin>
           </Formulario>
         </div>
-      </Global>
+      </>
     );
   }
 }

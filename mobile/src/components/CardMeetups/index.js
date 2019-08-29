@@ -5,8 +5,9 @@ import styles, { Card, ImagemCard } from "./styles";
 import { View, Text, TouchableOpacity } from "react-native";
 import moment from "moment";
 import "moment/locale/pt-br";
+import { withNavigation } from "react-navigation";
 
-const CardMeetups = ({ data }) => (
+const CardMeetups = ({ data, navigation }) => (
   <View>
     <Card onEndReached={data} onEndReachedThreshold={0.1} style={styles.card}>
       <ImagemCard
@@ -15,10 +16,7 @@ const CardMeetups = ({ data }) => (
       />
       <View style={styles.viewFundoCard}>
         <View style={styles.viewCard}>
-          <Text style={styles.textoCardTitulo}>
-            {console.tron.log("data", data)}
-            {data.titulo}
-          </Text>
+          <Text style={styles.textoCardTitulo}>{data.titulo}</Text>
           <Text style={styles.textoCard}>
             <Icon name="calendar" size={14} color="#999999" />
             <Text>
@@ -35,7 +33,17 @@ const CardMeetups = ({ data }) => (
             <Icon name="user" size={14} color="#999999" />
             <Text> Organizador: {data.id}</Text>
           </Text>
-          <TouchableOpacity style={styles.button} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              navigation.navigate(
+                "Inscricoes",
+                {
+                  jaburu: data.id
+                }(console.tron.log(JSON.stringify(jaburu)))
+              )
+            }
+          >
             <Text style={styles.buttonText}>Realizar Inscrição</Text>
           </TouchableOpacity>
         </View>
@@ -43,4 +51,4 @@ const CardMeetups = ({ data }) => (
     </Card>
   </View>
 );
-export default CardMeetups;
+export default withNavigation(CardMeetups);

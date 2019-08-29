@@ -1,14 +1,15 @@
-import storage from "redux-persist/lib/storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import { persistReducer } from "redux-persist";
 
 export default reducers => {
-  const persistReducer = persistReducer(
+  const persistedReducer = persistReducer(
     {
       key: "meetapp",
-      storage,
+      storage: AsyncStorage,
       whitelist: ["auth", "user"]
     },
     reducers
   );
-  return persistReducer;
+
+  return persistedReducer;
 };

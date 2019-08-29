@@ -55,13 +55,14 @@ class Inscricoes extends Component {
             </View>
           </Card>
         </View>
-        <Footer />
       </Container>
     );
   }
 }
 
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(Actions, dispatch);
+Inscricoes.navigationOptions = {
+  tabBarLabel: "Inscrições",
+  tabBarIcon: () => <Icon name="tag" size={20} color="#fff" />
+};
 
 export default Inscricoes;
